@@ -1,0 +1,526 @@
+/* I'm using the star (*) selector to reset everything. This just
+   removes the default margins and paddings browsers add, so we
+   all start from the same place. */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* This is a good habit, it makes sizing easier. */
+
+  /* I want to use 'Poppins' for the whole site. This sets it as the default. */
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+
+/* This is for the big "hero" section at the top. */
+.main{
+    /* Here's the background image */
+    background-image: url(Assests/images/background.jpg);
+    background-position: center center; /* Keeping the image centered */
+    background-repeat: no-repeat;       /* Don't want it to tile, just show once */
+    
+    /* This logic makes the image fill the screen (100vw), but
+       it won't let it get smaller than 1400px, which keeps it looking good. */
+    background-size: max(1400px, 100vw); 
+    
+    height: 65vh; /* Making it 65% of the viewport's height */
+    
+    /* I'm setting this to relative so I can position the dark overlay
+       inside it using 'absolute'. It's the anchor for its children. */
+    position: relative;
+}
+
+/* This is the dark overlay that goes on top of the image
+   to make the white text readable. */
+.dumy{
+    height: 65vh; /* Has to be the same height as its parent (.main) */
+    width: 100%;
+    opacity: 0.54; /* This is the transparency. 1 is fully black, 0 is invisible. */
+    background-color: black;
+    
+    /* 'absolute' lets this sit *exactly* on top of .main (which is 'relative') */
+    position: absolute;
+    top: 0;
+}
+
+/* Styling the navigation bar */
+nav{
+    display: flex; /* Flexbox is great for lining things up in a row. */
+    align-items: center; /* This centers the logo and buttons vertically. */
+    justify-content: space-between; /* This pushes the logo to the left and buttons to the right. */
+    
+    /* --- THIS IS THE NEW RESPONSIVE LOGIC --- */
+    /* This is the magic combo:
+       1. Be 90% wide on mobile.
+       2. Grow, but stop growing at 1200px (max-width).
+       3. 'margin: auto' centers it.
+       This replaces the old 'max-width: 70vw'. */
+    width: 90%;
+    max-width: 1200px; 
+    margin: auto;
+    
+    height: 50px;
+    padding-top: 15px;
+}
+
+/* We need the logo to sit on top of the dark overlay,
+   so z-index: 10 makes sure it's on a higher "layer". */
+.logo-text {
+    color: #E50914; /* Giving it that classic red color */
+    font-size: 2.5rem; /* Making the text logo nice and big */
+    font-weight: 900;
+    text-transform: uppercase; /* Ensures it's all caps (CINEMAFLIX) */
+    position: relative;
+    z-index: 10;
+}
+
+/* Same logic for the buttons, they also need to be
+   on top of the overlay. */
+nav button{
+    position: relative;
+    z-index: 10;
+}
+
+/* This holds all the main text in the hero section. */
+.text{
+    height: 50vh;
+    display: flex; /* Using flexbox again... */
+    flex-direction: column; /* ...but this time, stacking the text vertically. */
+    align-items: center;    /* Centering the text horizontally. */
+    justify-content: center; /* Centering the text vertically. */
+    color: white;
+    
+    /* This makes sure the text is also on top of the overlay. */
+    position: relative; 
+    gap: 10px; /* Just adds a little space between each line of text. */
+    padding: 0 40px;
+    text-align: center;
+}
+
+/* This targets the *first* child of .text (the main headline) */
+.text> :first-child{
+    font-size: 35px;
+    font-weight: bolder;
+}
+
+/* This targets the *second* child... */
+.text> :nth-child(2){
+    font-size: 20px;
+    font-weight:500;
+}
+
+/* ...and this targets the *third* child. */
+.text> :nth-child(3){
+    font-size: 15px;
+    font-weight:450;
+}
+
+/* This is just the thick grey bar that separates content sections. */
+.separation{
+    height: 7px;
+    background-color: grey;
+}
+
+/* These are the base styles for all my buttons. */
+.btn{
+    padding: 3px 8px;
+    font-weight: 400;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* This is just for the "English" button. */
+.btn-grey{
+    border: 1px solid white;
+    background-color: rgba(23, 23, 23, 0.288); /* Giving it a semi-transparent dark background. */
+    width:100px;
+}
+
+/* This is a "media query". It means "if the screen is 410px wide or
+   less, apply these styles." I'm just making the button smaller. */
+@media screen and (max-width:410px) {
+    .btn-grey{
+        width:80px;
+    }
+}
+
+/* This is for the big "Get Started" button. */
+.btn-red{
+    background-color: red;
+}
+
+/* This is for the smaller "Login" button in the nav. */
+.btn-red-sm{
+    background-color: red;
+}
+
+/* By default, links (<a>) have underlines. This removes it. */
+.btn-red-sm a{
+    text-decoration: none;
+    color: white;
+}
+
+/* Styling the email input field */
+.input{
+    padding-top: 3px;
+    padding-bottom: 2px;
+    padding-left: 10px;
+    padding-right: 25px;
+    font-weight:500;
+    /* Using rgba for a semi-transparent background */
+    background-color: rgba(23, 23, 23, 0.3);
+    color: white;
+    border: 1px solid rgba(247, 245, 245, 0.4); /* And a semi-transparent border */
+}
+
+/* This div holds the email input and "Get Started" button. */
+.text-buttons{
+    display: flex; /* Using flex to put them side-by-side. */
+    justify-content: center;
+    align-itemss: center;
+    gap: 10px; /* A little space between them. */
+}
+
+/* This is the base style for the content sections
+   (like "Enjoy on your TV"). */
+.first{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* --- THIS IS THE NEW RESPONSIVE LOGIC --- */
+    /* Same as the nav, this makes the sections 90% wide,
+       but they stop growing at 1200px. */
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    color: white;
+}
+
+/* This media query makes the sections stack vertically on
+   screens 1200px or less. 'flex-wrap' is the key! */
+@media screen and (max-width:1200px){
+    .first{
+        flex-wrap: wrap; /* This lets the items stack when they run out of space. */
+    }
+}
+
+/* This container holds the image (like the TV) and the video. */
+.secImg{
+    position: relative; /* Setting this to relative so I can position the video inside it. */
+}
+
+/* This is the static image (the TV frame). */
+.secImg img{
+    width: 400px; /* We keep this fixed for desktop... */
+}
+
+/* This is the video that plays *inside* the TV frame. */
+.secImg video{
+    width: 291px;
+    position: absolute; /* 'absolute' lets me place it exactly where I want
+                           on top of the 'relative' .secImg container. */
+    
+    /* These values are just from trial and error, lining up the
+       video with the TV screen. */
+    top: 63px;
+    right: 56px;
+    
+    /* Just making sure the video is on top of the image. */
+    z-index: 10; 
+}
+
+/* This targets the text and image containers within the .first section. */
+.first >div{
+    display: flex;
+    flex-direction: column; /* Stacking the text lines vertically. */
+}
+
+/* Just adding some padding to the text block. */
+.first-text{
+    padding: 30px 0;
+}
+
+/* This styles the main headline for the section (e.g., "Enjoy on your TV") */
+section.first>div :first-child{
+    font-size: 37px;
+    font-weight: 550;
+}
+
+/* And this styles the sub-text below the headline. */
+section.first>div :nth-child(2){
+    font-size: 18px;
+}
+
+/* --- FAQ SECTION STYLES --- */
+
+/* This is the main container for the whole FAQ list. */
+.faq{
+    color: white;
+   padding: 25px 0;
+}
+
+/* Styling the H2 title "Frequently Asked Questions" */
+.faq h2{
+    text-align: center;
+    margin: 15px;
+    font-weight: 600;
+}
+
+/* Styling the question text itself. */
+.faq span{
+    font-weight: 450;
+}
+
+/* This styles the <details> tag, which is the whole clickable box
+   for a single question. */
+section.faq details {
+    /* --- THIS IS THE NEW RESPONSIVE LOGIC --- */
+    /* Same as the nav, 90% wide, max 1200px. */
+    width: 90%;
+    max-width: 1200px;
+    margin: 8px auto; /* This creates the space *between* each question. */
+    font-size: 18px;
+}
+
+/* This is the <summary> tag, which is just the *header* you click on. */
+section.faq summary {
+    background-color: #2d2d2d;
+    display: flex; /* Using flex to put the text and '+' icon on the same line. */
+    align-items: center;
+    justify-content: space-between; /* Pushes the text left and the '+' right. */
+    padding: 10px 15px;
+    transition: all 0.4s ease-out; /* Makes the hover effect smooth. */
+    cursor: pointer;
+    
+    /* This is super important! It removes the default ugly triangle
+       arrow that browsers put on <summary> tags. */
+    list-style: none; 
+}
+
+/* Just a simple hover effect for the question bar. */
+section.faq summary:hover {
+    background-color: #414141;
+}
+
+/* Styling the '+' icon. */
+section.faq summary img {
+    filter: invert(1); /* My icon was black, so this flips it to white. */
+    
+    /* This tells the browser to animate the 'transform' property,
+       which I use later to rotate it. */
+    transition: transform 0.3s ease-out;
+}
+
+/* This is the cool part! When you click a <details> tag, the
+   browser adds an [open] attribute to it. */
+/* This selector says: "Find an <img> *inside* a <summary> *whose
+   parent <details> tag is [open]*" */
+section.faq details[open] > summary img {
+    /* This rotates the '+' 45 degrees to make it look like an 'x'. */
+    transform: rotate(45deg);
+}
+
+/* This is the box that holds the answer text. */
+.faq-content {
+    background-color: #2d2d2d;
+    padding: 15px;
+    /* This adds a tiny 2px line between the header and the answer. */
+    margin-top: 2px; 
+}
+
+/* Styling the <p> answer text. */
+.faq-content p {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+/* This is a bit tricky, but it just adds space *between*
+   paragraphs *if* there are two of them, like in the first question. */
+.faq-content p:first-child:not(:last-child) {
+    margin-bottom: 15px; 
+}
+/* --- FAQ STYLES END HERE --- */
+
+
+/* Styling the footer at the bottom. */
+footer{
+    /* --- THIS IS THE NEW RESPONSIVE LOGIC --- */
+    /* Same as the nav, 90% wide, max 1200px. */
+    width: 90%;
+    max-width: 1200px;
+    margin: auto; /* Centering the footer content. */
+    color: white;
+    padding: 30px 0;
+}
+
+/* This container holds all the footer links. */
+.footer{
+    display: grid; /* I'm using CSS Grid here. */
+    
+    /* This creates 3 columns of equal width. */
+    grid-template-columns: 1fr 1fr 1fr; 
+}
+
+/* We'll handle the footer columns in the new breakpoints below. */
+
+
+/* This styles a single column of links. */
+.footer-item{
+    display: flex;
+   flex-direction: column; /* Stacking the links vertically. */
+   gap: 15px; /* Adds space between each link. */
+   font-size: 15px;
+}
+
+/* Making the footer links white. */
+.footer a{
+    color: white;
+}
+
+/* This is for the "Questions? Contact us." text. */
+footer .questions{
+    padding-bottom: 50px;
+    font-size: larger;
+    font-weight: 600;
+}
+
+
+/* === HERE IS ALL MY NEW RESPONSIVE CODE === */
+
+/* --- "Large Tablet" Breakpoint --- */
+/* These rules apply to any screen 992px wide or less. */
+@media screen and (max-width: 992px) {
+    
+    /* As soon as the layout might stack, let's center
+       the text. It just looks cleaner. */
+    .first-text {
+        text-align: center;
+    }
+
+    /* Shrinking the text a bit for tablets. */
+    .text> :first-child {
+        font-size: 32px;
+    }
+    .text> :nth-child(2) {
+        font-size: 18px;
+    }
+
+    /* Shrinking the section headers too. */
+    section.first>div :first-child {
+        font-size: 30px;
+    }
+    section.first>div :nth-child(2) {
+        font-size: 16px;
+    }
+
+    /* Making the logo a little smaller. */
+    .logo-text {
+        font-size: 2.25rem;
+    }
+
+    /* Changing the footer to 2 columns. */
+    .footer {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+/* --- "Small Tablet" Breakpoint --- */
+/* These rules apply to any screen 768px wide or less. */
+@media screen and (max-width: 768px) {
+
+    /* --- THIS IS THE NEW LOGIC FOR THE VIDEO --- */
+    /* The 400px image is definitely overflowing by now.
+       Let's make the image 100% wide (of its container). */
+    .secImg img {
+         width: 100%; 
+    }
+
+    /* Now that the image is fluid, we *must* use
+       percentages for the video to keep it aligned. */
+    .secImg video {
+        /* (Original_video_width / Original_image_width) */
+        width: 72.75%;    /* (291px / 400px) */
+        
+        /* (Original_video_top / Original_image_width) */
+        top: 15.75%;     /* (63px / 400px) */
+
+        /* (Original_video_right / Original_image_width) */
+        right: 14%;      /* (56px / 400px) */
+    }
+
+    /* More font shrinking. */
+    .text> :first-child {
+        font-size: 28px;
+    }
+    .logo-text {
+        font-size: 2rem;
+    }
+}
+
+
+/* --- "Mobile" Breakpoint --- */
+/* These rules apply to any screen 600px wide or less. */
+@media screen and (max-width: 600px) {
+
+    /* Using min-height is safer than 'height'. It's 75vh
+       at a minimum, but can grow if content is taller. */
+    .main, .dumy {
+        min-height: 75vh; 
+        height: auto;
+    }
+    
+    /* This is the key mobile change: stacking the email
+       input and "Get Started" button vertically. */
+    .text-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px; /* Adds space now that they're stacked. */
+    }
+
+    /* Making the input and button easier to tap on mobile. */
+    .text-buttons .input {
+        width: 80%; /* Making the input field wider. */
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+    }
+    .text-buttons .btn-red {
+        font-size: 16px; /* Bigger text on the button. */
+        padding: 10px 16px;
+    }
+
+    /* Stop the text from hitting the screen edges. */
+    .text {
+        padding: 0 10px; 
+    }
+    .text> :first-child {
+        font-size: 26px;
+    }
+    
+    /* On small phones, the 2-column footer is still too much.
+       This makes it a single, simple column. */
+    .footer {
+        grid-template-columns: 1fr;
+        gap: 20px; /* Adds space between the stacked link groups. */
+    }
+
+    /* Final tweak to the footer links. */
+    .footer-item{
+        font-size: 14px;
+        gap: 12px;
+    }
+
+    /* Smallest logo size */
+    .logo-text {
+        font-size: 1.75rem;
+    }
+}
